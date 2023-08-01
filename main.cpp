@@ -8,7 +8,7 @@ int N = 30, M = 20;           //create int N and size and set to 30 and 20
 int w = 16 * N;                //create int w and set to size times N
 int h = 16 * M;                //create int h and set to size times N
 
-int dir, num = 4;              //create int dir and num and set to 4
+int dir, num = 2;              //create int dir and num and set to 4
 
 class Snake{                  //create class Snake
 public:                       //public
@@ -24,7 +24,7 @@ Fruit f;                           //create object f
 
 
 void Tick(){
-    for(int i = num; i > 0; --i){   //for loop
+    for(int i = num; i > 0; --i){   //for loop                  //counting backwards blocks of snake
         s[i].x = s[i - 1].x;        //set s[i].x to s[i - 1].x
         s[i].y = s[i - 1].y;        //set s[i].y to s[i - 1].y
     }
@@ -43,28 +43,28 @@ void Tick(){
     //
     if((s[0].x == f.x) && (s[0].y == f.y)){   //if s[0].x is equal to f.x and s[0].y is equal to f.y
         num++;                                //increment num
-        f.x = rand() % N;                     //set f.x to random number between 0 and N
-        f.y = rand() % M;                     //set f.y to random number between 0 and M
+        f.x = 1 + rand() % (N-2);                     //set f.x to random number between 0 and N
+        f.y = 1 + rand() % (M-2);                     //set f.y to random number between 0 and M
     }
 
     //
-    if(s[0].x > N){   //if s[0].x is greater than N
-        s[0].x = 0;   //set s[0].x to 0
-    }
-    if(s[0].x < 0){   //if s[0].x is less than 0
-        s[0].x = N;   //set s[0].x to N
-    }
-    if(s[0].y > M){   //if s[0].y is greater than M
-        s[0].y = 0;   //set s[0].y to 0
-    }
-    if(s[0].y < 0){   //if s[0].y is less than 0
-        s[0].y = M;   //set s[0].y to M
-    }
-    for(int i = 1; i < num; i++){   //for loop
-        if(s[0].x == s[i].x && s[0].y == s[i].y){   //if s[0].x is equal to s[i].x and s[0].y is equal to s[i].y
-            num = i;                               //set num to i
-        }
-    }
+    // if(s[0].x > N){   //if s[0].x is greater than N
+    //     s[0].x = 0;   //set s[0].x to 0
+    // }
+    // if(s[0].x < 0){   //if s[0].x is less than 0
+    //     s[0].x = N;   //set s[0].x to N
+    // }
+    // if(s[0].y > M){   //if s[0].y is greater than M
+    //     s[0].y = 0;   //set s[0].y to 0
+    // }
+    // if(s[0].y < 0){   //if s[0].y is less than 0
+    //     s[0].y = M;   //set s[0].y to M
+    // }
+    // for(int i = 1; i < num; i++){   //for loop
+    //     if(s[0].x == s[i].x && s[0].y == s[i].y){   //if s[0].x is equal to s[i].x and s[0].y is equal to s[i].y
+    //         num = i;                               //set num to i
+    //     }
+    // }
     
 
     
@@ -75,7 +75,11 @@ void Tick(){
 int main()                //main function
 {
     srand(time(0));       //seed random number generator with time(0
-
+    // Initialize the starting position of the snake at the center of the window
+    for (int i = 0; i < num; i++) {
+        s[i].x = N / 2;
+        s[i].y = M / 2;
+    }
     RenderWindow window(sf::VideoMode(w, h), "Snake Game", Style::Close | Style::Titlebar);  //create window with size w x h, title TicTacToe, and close and titlebar buttons on window 
     window.setFramerateLimit(60);   //set framerate limit to 60
     Texture white, green, red;             //create textures t1, t2, and t3
