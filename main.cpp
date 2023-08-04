@@ -46,29 +46,28 @@ void Tick(){
         f.x = 1 + rand() % (N-2);                     //set f.x to random number between 0 and N
         f.y = 1 + rand() % (M-2);                     //set f.y to random number between 0 and M
     }
+}
 
-    //
-    // if(s[0].x > N){   //if s[0].x is greater than N
-    //     s[0].x = 0;   //set s[0].x to 0
-    // }
-    // if(s[0].x < 0){   //if s[0].x is less than 0
-    //     s[0].x = N;   //set s[0].x to N
-    // }
-    // if(s[0].y > M){   //if s[0].y is greater than M
-    //     s[0].y = 0;   //set s[0].y to 0
-    // }
-    // if(s[0].y < 0){   //if s[0].y is less than 0
-    //     s[0].y = M;   //set s[0].y to M
-    // }
-    // for(int i = 1; i < num; i++){   //for loop
-    //     if(s[0].x == s[i].x && s[0].y == s[i].y){   //if s[0].x is equal to s[i].x and s[0].y is equal to s[i].y
-    //         num = i;                               //set num to i
-    //     }
-    // }
-    
+void DrawBorder(RenderWindow& window, Texture& green) {
+    Sprite borderTile(green);
 
-    
+    // Draw top and bottom borders
+    for (int i = 0; i < N; i++) {
+        borderTile.setPosition(i * 16, 0);
+        window.draw(borderTile);
 
+        borderTile.setPosition(i * 16, (M - 1) * 16);
+        window.draw(borderTile);
+    }
+
+    // Draw left and right borders
+    for (int j = 1; j < M - 1; j++) {
+        borderTile.setPosition(0, j * 16);
+        window.draw(borderTile);
+
+        borderTile.setPosition((N - 1) * 16, j * 16);
+        window.draw(borderTile);
+    }
 }
 
 
@@ -137,15 +136,20 @@ int main()                //main function
 
     
         window.clear(Color::Black); //clear window with white color
+        DrawBorder(window, white);  //draw border
         // for (int i = 0; i < N; i++)
         // {
         //     for (int j = 0; j < M; j++)
         //     {
-        //         w.setPosition(i * 16, j * 16); //set position of sprite w
-        //         window.draw(w);                 //draw sprite w
+        //         r.setPosition(i * 16, 16); //set position of sprite w
+        //         //r.setPosition(16,j * 16); //set position of sprite w
+        //         // r.setPosition( 16, 16); //set position of sprite w
+        //         // r.setPosition(i * 16, 16); //set position of sprite w
+
+        //         window.draw(r);                 //draw sprite w
         //     }
             
-        // }
+        //}
         for (int i = 0; i < num; i++)
         {
             g.setPosition(s[i].x * 16, s[i].y * 16); //set position of sprite g
